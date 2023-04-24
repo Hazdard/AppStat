@@ -1,3 +1,4 @@
 *.DS_Store
 *.ipynb_checkpoints
 numericals-tours/*
+TD_SGD/mnist_digits.mat
