@@ -14,6 +14,13 @@
 
 \DeclareMathOperator*{\argmin}{arg\min}
 
+\usepackage{array,multirow,makecell}
+\setcellgapes{4pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
 \renewcommand{\headrulewidth}{1pt}
 \fancyhead[C]{Machine Learning : Home Assignment 1}
 \fancyhead[L]{L3 - 2022/2023}
@@ -26,7 +33,7 @@
 
 \begin{document}
 
-\textbf{Question 1} : Les images sont en noir et blanc, de dimension $28 \times 28$. On peut donc choisir $\mathcal{X}=[0;1]^{28\times 28}$. De plus, le problème impose $\mathcal{Y}=\{-1,1\}$.\\ $\mathcal{X}$ (resp. $\mathcal{Y}$) est inclus dans un espace de dimension $784$ (resp. $1$). \\
+\textbf{Question 1} : \\ Les images sont en noir et blanc, de dimension $28 \times 28$. On peut donc choisir $\mathcal{X}=[0;1]^{28\times 28}$. De plus, le problème impose $\mathcal{Y}=\{-1,1\}$.\\ $\mathcal{X}$ (resp. $\mathcal{Y}$) est inclus dans un espace de dimension $784$ (resp. $1$). \\
 
 \textbf{Question 2} : \\
  (a) - Le risque empirique associé à la $0$-$1$ loss est : \[\widehat{R}_n(f) := \frac{1}{n} \sum_{i=1}^n\mathds{1}_{f(X_i)\neq Y_i}\]
@@ -37,7 +44,25 @@ Dans ce cas, la minimisation du risque empirique est compliquée car la fonction
 
 (b) - Utiliser un second jeu de données afin de tester les performances permet d'éviter l'overfitting. En effet, les données sur lesquelles on s'entraine sont bruitées, donc à partir d'un certain seuil de précision, on ne s'approche plus de la distribution réelle mais plutôt de la distribution d'entrainement bruitée. \\
 
-(c) - Le problème d'optimisation associé à la linear least square regression consiste à calculer l'estimateur suivant : \[\widehat{\theta}_n := \argmin_{\theta \in \mathbb{R}^{28\times 28}} \frac{1}{n}\sum_{i=1}^n(\theta^\top X_i-Y_i)^2\]
+(c) - Le problème d'optimisation associé à la linear least square regression consiste à calculer le couple d'estimateurs suivant : \[(\widehat{\theta}_n,\widehat{\alpha}_n ):= \argmin_{(\theta,\alpha) \in \mathbb{R}^{28\times 28}\times\mathbb{R}} \frac{1}{n}\sum_{i=1}^n((\theta^\top X_i + \alpha) -Y_i)^2\]
 De même, le problème d'optimisation associé à la linear logistic regression consiste à calculer l'estimateur suivant :
 \[\widehat{\beta}_n := \argmin_{\beta \in \mathbb{R}^{28\times 28}} \frac{1}{n}\sum_{i=1}^n \log(1 + e^{-\beta^\top X_i Y_i}) \]
+
+\textbf{Question 3} : \\ Les implémentations sont au début du notebook (séparées entre logistique et linéaire), les calculs et images sont à la suite (numérotés par question). \\
+
+\textbf{Question 4} : \\ (a) - La classification K-NN consiste à attribuer à une donnée d'entrée le label dominant parmis ses K plus proches voisins dans la distribution d'entrainement. \\
+
+\textbf{Question 5} : \\
+
+\begin{tabular}{|C{5.5cm}|C{3.5cm}|C{3cm}|C{3cm}|}
+  \hline
+  & Logistic regression & Linear regression & K-NN \\
+  \hline
+  Empirical error (0-1 loss) en \% & 4,53 & 4,72 & 3,18 \\
+  \hline
+  Test error (0-1 loss) en \% & 4,93 & 5,2 & 4.8 \\
+  \hline
+  
+\end{tabular}
+
 \end{document}
